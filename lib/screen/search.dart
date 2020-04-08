@@ -16,14 +16,13 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   List<DayObjPro> dailySummary;
-  List<DayObjPro> res = [];
+  List<DayObjPro> res;
   bool isFetched = false;
   String date;
 
   @override
   void initState() {
     _fetchData();
-    print(res);
     super.initState();
   }
 
@@ -124,7 +123,6 @@ class _SearchState extends State<Search> {
           res.add(dailySummary[index]);
         }
       }
-      print(res.isEmpty);
     }
   }
 

@@ -4,7 +4,6 @@ import 'package:account_app/utils/inputdecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:account_app/utils/loading.dart';
-import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -20,7 +19,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     return isloading
         ? Loading()
         : Scaffold(

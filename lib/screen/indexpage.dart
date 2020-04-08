@@ -5,7 +5,6 @@ import 'addDaily.dart';
 import 'monthlyView.dart';
 import 'yearlyView.dart';
 import 'search.dart';
-import 'package:flutter/services.dart';
 
 class Index extends StatefulWidget {
   final List<DayObjPro> dailySummary;
@@ -84,7 +83,6 @@ class _IndexState extends State<Index> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       bottomNavigationBar: CurvedNavigationBar(

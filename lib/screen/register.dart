@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:account_app/utils/inputdecoration.dart';
 import 'package:account_app/utils/loading.dart';
-import 'package:flutter/services.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -22,7 +21,6 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     return isloading
         ? Loading()
         : Scaffold(
