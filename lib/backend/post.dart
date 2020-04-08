@@ -17,7 +17,10 @@ postRegister(String name, String email, String password) async {
     final jsonResponse = json.decode(response.body);
     user = new User.fromJson(jsonResponse);
   } else if (response.statusCode == 400 || response.statusCode == 500) {
-    user = new User(accessToken: null, statusCode: response.statusCode);
+    user = new User(
+        accessToken: null,
+        statusCode: response.statusCode,
+        name: UserName(name: name));
   }
   return user;
 }
@@ -37,12 +40,13 @@ postLogin(String email, String password) async {
     final jsonResponse = json.decode(response.body);
     user = new User.fromJson(jsonResponse);
   } else if (response.statusCode == 401 || response.statusCode == 500) {
-    user = new User(accessToken: null, statusCode: response.statusCode);
+    user = new User(
+        accessToken: null, statusCode: response.statusCode, name: null);
   }
   return user;
 }
 
-postCreateAccount(String accessToken) async {
+postCreateAccount(String accessToken, String name) async {
   var url = 'https://accountantapi.herokuapp.com/accounts/';
 
   var response = await http.post(url, headers: {"Authorization": accessToken});
@@ -50,7 +54,8 @@ postCreateAccount(String accessToken) async {
   //do with Resp
   Resp resp;
   if (response.statusCode == 200) {
-    resp = new Resp.fromJson(jsonResponse, response.statusCode, accessToken);
+    resp =
+        new Resp.fromJson(jsonResponse, response.statusCode, accessToken, name);
   } else if (response.statusCode == 500 || response.statusCode == 401) {
     resp = new Resp(
         account: null, statusCode: response.statusCode, accessToken: null);

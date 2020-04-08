@@ -1,13 +1,26 @@
 class User {
   final String accessToken;
   final int statusCode;
+  final UserName name;
 
-  User({this.accessToken, this.statusCode});
+  User({this.accessToken, this.statusCode, this.name});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      accessToken: json['accessToken'],
-      statusCode: json['statusCode'],
+        accessToken: json['accessToken'],
+        statusCode: json['statusCode'],
+        name: UserName.fromJson(json['user']));
+  }
+}
+
+class UserName {
+  final String name;
+
+  UserName({this.name});
+
+  factory UserName.fromJson(Map<String, dynamic> json) {
+    return UserName(
+      name: json['name']
     );
   }
 }
@@ -16,14 +29,17 @@ class Resp {
   final Account account;
   final statusCode;
   final String accessToken;
+  final String name;
 
-  Resp({this.account, this.statusCode, this.accessToken});
+  Resp({this.account, this.statusCode, this.accessToken, this.name});
 
-  factory Resp.fromJson(Map<String, dynamic> json, int status, String token) {
+  factory Resp.fromJson(
+      Map<String, dynamic> json, int status, String token, String name) {
     return Resp(
         account: Account.fromJson(json['account']),
         statusCode: status,
-        accessToken: token);
+        accessToken: token,
+        name: name);
   }
 }
 

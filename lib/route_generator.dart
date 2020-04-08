@@ -20,6 +20,7 @@ class RouteGenerator {
                   dailySummary: args.account.dailySummary,
                   monthlySummary: args.account.monthlySummary,
                   yearlySummary: args.account.yearlySummary,
+                  name: args.name,
                 ));
       default:
         return _errorRoute();

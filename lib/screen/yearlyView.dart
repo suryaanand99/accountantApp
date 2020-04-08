@@ -5,8 +5,9 @@ import 'package:account_app/backend/post.dart';
 
 class Yearly extends StatefulWidget {
   String accessToken;
+  String name;
 
-  Yearly({this.accessToken});
+  Yearly({this.accessToken,this.name});
 
   @override
   _YearlyState createState() => _YearlyState();
@@ -23,7 +24,7 @@ class _YearlyState extends State<Yearly> {
   }
 
   void _fetchData() async {
-    Resp resp = await postCreateAccount(widget.accessToken);
+    Resp resp = await postCreateAccount(widget.accessToken,widget.name);
     if (resp.statusCode == 401) {
       Navigator.of(context).pushNamed('/');
     } else {

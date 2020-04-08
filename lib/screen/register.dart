@@ -69,19 +69,19 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               _registerName(context),
               SizedBox(
-                height: 10.0,
+                height: MediaQuery.of(context).size.height / 40,
               ),
               _registerUsername(context),
               SizedBox(
-                height: 10.0,
+                height: MediaQuery.of(context).size.height / 40,
               ),
               _registerPassword(context),
               SizedBox(
-                height: 10.0,
+                height: MediaQuery.of(context).size.height / 40,
               ),
               _registerConfirmPassword(context),
               SizedBox(
-                height: 10.0,
+                height: MediaQuery.of(context).size.height / 40,
               ),
               _registerButton(context),
             ],
@@ -183,7 +183,8 @@ class _RegisterState extends State<Register> {
       BuildContext context, String name, String email, String password) async {
     User user = await postRegister(name, email, password);
     if (user.statusCode == 201) {
-      Resp resp = await postCreateAccount(user.accessToken);
+      Resp resp =
+          await postCreateAccount(user.accessToken, user.name.name.toString());
       if (resp.statusCode == 500) {
         setState(() {
           isloading = false;

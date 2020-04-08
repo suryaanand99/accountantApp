@@ -6,8 +6,9 @@ import 'package:account_app/backend/post.dart';
 
 class Search extends StatefulWidget {
   String accessToken;
+  String name;
 
-  Search({this.accessToken});
+  Search({this.accessToken, this.name});
 
   @override
   _SearchState createState() => _SearchState();
@@ -22,11 +23,12 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     _fetchData();
+    print(res);
     super.initState();
   }
 
   void _fetchData() async {
-    Resp resp = await postCreateAccount(widget.accessToken);
+    Resp resp = await postCreateAccount(widget.accessToken, widget.name);
     if (resp.statusCode == 401) {
       Navigator.of(context).pushNamed('/');
     } else {
@@ -63,7 +65,7 @@ class _SearchState extends State<Search> {
         children: <Widget>[
           _searchFeild(context),
           SizedBox(
-            height: 10,
+            height: MediaQuery.of(context).size.height / 40,
           ),
           button(context)
         ],
@@ -114,25 +116,31 @@ class _SearchState extends State<Search> {
   }
 
   _results() {
-    res = [];
-    for (int index = 0; index < dailySummary.length; index++) {
-      String summaryDate = dailySummary[index].dailyCreatedAt;
-      if (summaryDate.contains(date)) {
-        res.add(dailySummary[index]);
+    if (date != null) {
+      res = [];
+      for (int index = 0; index < dailySummary.length; index++) {
+        String summaryDate = dailySummary[index].dailyCreatedAt;
+        if (summaryDate.contains(date)) {
+          res.add(dailySummary[index]);
+        }
       }
+      print(res.isEmpty);
     }
-    print(res.isEmpty);
   }
 
   Widget _listViewBuilder(BuildContext context) {
-    if (res.length == 0) {
+    if (res == null) {
+      return Container();
+    } else if (res.length == 0 && res != null) {
       return Container(
-          padding: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height / 40,
+          ),
           child: Text(
             "* No Results Found *",
             style: Theme.of(context).textTheme.subtitle1,
           ));
-    } else {
+    } else if (res != null) {
       return new ListView.builder(
           itemCount: res.length, itemBuilder: _listofAccounts);
     }

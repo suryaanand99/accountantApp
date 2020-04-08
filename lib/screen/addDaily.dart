@@ -5,8 +5,9 @@ import 'package:account_app/backend/dailyAddBackend.dart';
 
 class AddDaily extends StatefulWidget {
   String accessToken;
+  String name;
 
-  AddDaily({this.accessToken});
+  AddDaily({this.accessToken, this.name});
 
   @override
   _AddDailyState createState() => _AddDailyState();
@@ -32,26 +33,34 @@ class _AddDailyState extends State<AddDaily> {
     );
   }
 
-  Widget _welcome(BuildContext context){
-    
+  Widget _welcome(BuildContext context) {
+    return Text(
+      "WELCOME " + widget.name.toUpperCase() + " !",
+      style: Theme.of(context).textTheme.headline1,
+    );
   }
 
   Widget _formDaily(BuildContext context) {
     return Form(
         key: _formkey,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
+            _welcome(context),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 10,
+            ),
             _getIncome(context),
             SizedBox(
-              height: 10.0,
+              height: MediaQuery.of(context).size.height / 40,
             ),
             _getProfit(context),
             SizedBox(
-              height: 10.0,
+              height: MediaQuery.of(context).size.height / 40,
             ),
             _getExpenditure(context),
             SizedBox(
-              height: 10.0,
+              height: MediaQuery.of(context).size.height / 40,
             ),
             button(context)
           ],
@@ -97,12 +106,10 @@ class _AddDailyState extends State<AddDaily> {
     );
   }
 
-  Color _getColor(BuildContext context){
-    if(enable == false){
+  Color _getColor(BuildContext context) {
+    if (enable == false) {
       return Colors.white;
-    }
-    else if(enable == true)
-    {
+    } else if (enable == true) {
       return Colors.grey[700];
     }
   }
@@ -119,7 +126,9 @@ class _AddDailyState extends State<AddDaily> {
           ),
           shape: RoundedRectangleBorder(
               side: BorderSide(
-                  color: _getColor(context), width: 1.5, style: BorderStyle.solid),
+                  color: _getColor(context),
+                  width: 1.5,
+                  style: BorderStyle.solid),
               borderRadius: BorderRadius.circular(10)),
           disabledColor: Colors.redAccent,
           highlightColor: Colors.redAccent,
@@ -145,7 +154,7 @@ class _AddDailyState extends State<AddDaily> {
         await patchAddDaily(income, profit, expenditure, widget.accessToken);
     setState(() {
       enable = false;
-    });   
+    });
     if (status == 202) {
       Fluttertoast.showToast(
           msg: "Successfully Added",

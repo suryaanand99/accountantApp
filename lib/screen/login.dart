@@ -56,15 +56,15 @@ class _LoginState extends State<Login> {
             children: <Widget>[
               _loginUsername(context),
               SizedBox(
-                height: 10.0,
+              height: MediaQuery.of(context).size.height / 40,
               ),
               _loginPassword(context),
               SizedBox(
-                height: 10.0,
+              height: MediaQuery.of(context).size.height / 40,
               ),
               loginButton(context),
               SizedBox(
-                height: 10.0,
+              height: MediaQuery.of(context).size.height / 40,
               ),
               _gotoRegister(context)
             ],
@@ -155,7 +155,7 @@ class _LoginState extends State<Login> {
     User user = await postLogin(email, password);
 
     if (user.statusCode == 200) {
-      Resp resp = await postCreateAccount(user.accessToken);
+      Resp resp = await postCreateAccount(user.accessToken, user.name.name.toString());
       if (resp.statusCode == 500) {
         setState(() {
           isloading = false;

@@ -12,12 +12,14 @@ class Index extends StatefulWidget {
   final List<MonthlyObjPro> monthlySummary;
   final List<YearlyObjPro> yearlySummary;
   final String accessToken;
+  final String name;
 
   Index(
       {this.accessToken,
       this.dailySummary,
       this.monthlySummary,
-      this.yearlySummary});
+      this.yearlySummary,
+      this.name});
 
   @override
   _IndexState createState() => _IndexState();
@@ -43,12 +45,16 @@ class _IndexState extends State<Index> {
   void initializeObj() {
     //addDaily
     _addDaily.accessToken = widget.accessToken;
+    _addDaily.name = widget.name;
     //Monthly
     _monthly.accessToken = widget.accessToken;
+    _monthly.name = widget.name;
     //Yearly
     _yearly.accessToken = widget.accessToken;
+    _yearly.name = widget.name;
     //search
     _search.accessToken = widget.accessToken;
+    _search.name = widget.name;
   }
 
   Widget _pageChooser(int page) {

@@ -5,8 +5,9 @@ import 'package:account_app/utils/loading.dart';
 
 class Montly extends StatefulWidget {
   String accessToken;
+  String name;
 
-  Montly({this.accessToken});
+  Montly({this.accessToken,this.name});
 
   @override
   _MontlyState createState() => _MontlyState();
@@ -23,7 +24,7 @@ class _MontlyState extends State<Montly> {
   }
 
   void _fetchData() async {
-    Resp resp = await postCreateAccount(widget.accessToken);
+    Resp resp = await postCreateAccount(widget.accessToken,widget.name);
     if (resp.statusCode == 401) {
       Navigator.of(context).pushNamed('/');
     } else {
